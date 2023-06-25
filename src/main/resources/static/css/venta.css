@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#venta-main-view-paciente{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+#venta-main-view-cuerpo-paciente{
+    display: flex;
+    flex-direction: row;
+}
+.venta-main-view-paciente-item{
+    width: 32%;
+    padding: 1%;
+}
+.venta-main-view-paciente-item-span{
+    height: 50px;
+}
+.venta-main-view-paciente-item-label{
+    height: 50px;
+}
+.venta-main-view-paciente-item-label>input{
+    width: 100%;
+    border: none;
+}
+#venta-main-view-producto{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+.venta-main-view-cabecera{
+	margin-left:5%;
+	margin-top:30px;
+	width: 90%;
+    text-align: center;
+    padding: 1.5%;
+    background-color: #172B4C;
+    color: white;
+    border-radius: 30px;
+}
+.venta-main-view-cabecera>span{
+    color: white;
+}
+#venta-main-view-producto-cuerpo{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.venta-main-view-producto-item{
+    width: 25%;
+    padding: 1%;
+}
+.venta-main-view-producto-item-span{
+    height: 50px;
+}
+.venta-main-view-producto-item-label{
+    height: 50px;
+}
+.venta-main-view-producto-item-label>input{
+    width: 100%;
+    border: none;
+}
+#venta-main-view-carrito{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+#cabecera-carrito{
+    background-color: #172B4C;
+}
+#venta-main-view-carrito-cuerpo{
+    height: 150px;
+    overflow-y: scroll;
+}
+#tabla-carrito{
+    width: 100%;
+}
+#tabla-carrito>thead>tr>th{
+    padding: 12px;
+}
+#tabla-carrito>tbody>tr>td{
+    padding: 2px;
+}
+#tabla-carrito>tfoot{
+    font-weight: bold;
+    height: 40px;
+}
+#boton-venta{
+    width: 15%;
+    min-width: 130px;
+    margin: 10px;
+    background-color: #172B4C;
+    padding: 12px;
+    border-radius: 40px;
+    margin-left: 85%;
+}
+#boton-venta>span{
+    color: white;
+}
+.agregar{
+    width: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boton-agregar{
+    height: 30px;
+    width: 30px;
+    background-color: #172B4C;
+    padding: 5px;
+    color: white;
+}
+/*estilos extra*/
+.contenedor-main{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.contenedor-left{
+	width: 45%;
+    display: flex;
+    flex-direction: column;
+    margin-right:10%;
+}
+.contenedor-right{
+	width: 45%;
+}
+#requerimiento-tabla{
+	margin-left:5%;
+	width: 90%;
+}

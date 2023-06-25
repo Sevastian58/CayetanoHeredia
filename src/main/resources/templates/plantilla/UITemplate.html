@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="cabecera">
+<meta charset="ISO-8859-1">
+<title>Plantilla</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+<!-- <style>
+	.modal-header, h4, .close {
+		background-color: #286090;
+		color: white !important;
+		text-align: center;
+		font-size: 20px;
+	}
+	.help-block{
+	 color: red;
+	 /*display: none;*/
+	}
+	.form-group.has-error .form-control-label {
+	  color: red;
+	}
+	.form-group.has-error .form-control {
+	  border: 1px solid red;
+	  box-shadow: 0 0 0 0.2rem rgba(250, 16, 0, 0.18);
+	}
+	
+	.alertify .ajs-dialog {
+	    top: 50%;
+	    transform: translateY(-50%);
+	    margin: auto;
+	}
+	
+	.ajs-header{
+		background-color: #286090 !important;
+		color: white !important;
+		/*text-align: center;*/
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.ajs-ok{
+		color: #fff;
+	    background-color: #007bff;
+	    border-color: #007bff;
+	}
+	.ajs-cancel{
+		color: #fff;
+	    background-color: #dc3545;
+	    border-color: #dc3545;
+	}
+	.btn-primary{
+	background-color: #286090 !important;
+	}
+	.dataTables_length, .dataTables_info{
+		display: none;
+	}
+	.modal-lg, .modal-xl {
+		max-width: 900px;
+		max-height: 800px;
+	}
+	
+	.form-control-feedback2 {
+	  margin:1px;
+	  position: absolute;
+	  padding: 10px;
+	  pointer-events: none;
+	  background-color: #e9ecef;
+	  border-style: none;
+	}
+	.form-control-feedback3 {
+	  margin:1px;
+	  position: absolute;
+	  margin-left:225px;
+	  padding: 10px;
+	  pointer-events: none;
+	  background-color: #e9ecef;
+	  border-style: none;
+	}
+	.form-control {
+	  padding-left: 40px!important;
+	}
+	/*.toast-succes{
+		width: 120px;
+	}*/
+</style> -->
+</head>
+<body>
+<!--crear fragmento "cabecera" -->
+<div th:fragment="menu">
+		<div class="pos-f-t">
+		<!--  
+			<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+				  <div class="navbar-header">
+					   <div class="navbar-header">
+						 <a class="navbar-brand" href="#">Cayetano Heredia</a>
+						</div>
+				</div>
+			  <div class="collapse navbar-collapse">
+				   <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding-left: 30px;">
+						<li class="nav-item" th:each="row:${session.enlaces}">
+						  <a class="nav-link" th:text="${row.descripcion}" th:href="${row.ruta}"></a>
+						</li>
+				
+				  </ul>
+				   
+				  <div class="navbar-nav ml-auto">
+					  <div class="flex" style="width:200px!important;padding-top: 10px;font-weight:bold ">
+			      		<span class="text-white">Usuario: </span><span class="text-white" th:text="${session.datos}"></span>
+			      	  </div>
+					  <span class="nav-item nav-link"></span>  
+					  <form method="post" th:action="@{/logout}"> 
+								<input type="submit" class="btn btn-success" value="Cerrar sesión">
+					  </form>
+				  </div>
+			</div>
+			</nav>-->
+					<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <!-- Container wrapper -->
+		  <div class="container-fluid">
+		    <!-- Toggle button -->
+		    <button
+		      class="navbar-toggler"
+		      type="button"
+		      data-mdb-toggle="collapse"
+		      data-mdb-target="#navbarSupportedContent"
+		      aria-controls="navbarSupportedContent"
+		      aria-expanded="false"
+		      aria-label="Toggle navigation"
+		    >
+		      <i class="fas fa-bars"></i>
+		    </button>
+		
+		    <!-- Collapsible wrapper -->
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <!-- Navbar brand -->
+		      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+		        <img
+		          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+		          height="15"
+		          alt="MDB Logo"
+		          loading="lazy"
+		        />
+		      </a>
+		      <!-- Left links -->
+		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		        <li class="nav-item" th:each="row:${session.enlaces}">
+		          <a class="nav-link" th:text="${row.descripcion}" th:href="${row.ruta}">Dashboard</a>
+		        </li>
+		      </ul>
+		      <!-- Left links -->
+		    </div>
+		    <!-- Collapsible wrapper -->
+		
+		    <!-- Right elements -->
+		    <div class="d-flex align-items-center">
+		    
+			
+			<form method="post" th:action="@{/logout}"> 
+				<button type="submit" class="btn btn-dark">Cerrar Sesion
+				</button>
+			</form>
+			
+		      <!-- Icon-->
+		      <a class="text-reset me-3" href="#">
+		        <i class="fas fa-shopping-cart"></i>
+		      </a> 
+		
+		      <!-- Notifications -->
+		      <div class="dropdown">
+		        <a
+		          class="text-reset me-3 dropdown-toggle hidden-arrow"
+		          href="#"
+		          id="navbarDropdownMenuLink"
+		          role="button"
+		          data-mdb-toggle="dropdown"
+		          aria-expanded="false"
+		        >
+		          <i class="fas fa-bell"></i>
+		          <span class="badge rounded-pill badge-notification bg-danger">1</span>
+		        </a>
+		        <ul
+		          class="dropdown-menu dropdown-menu-end"
+		          aria-labelledby="navbarDropdownMenuLink"
+		        >
+		          <li>
+		            <a class="dropdown-item" href="#">Some news</a>
+		          </li>
+		          <li>
+		            <a class="dropdown-item" href="#">Another news</a>
+		          </li>
+		          <li>
+		            <a class="dropdown-item" href="#">Something else here</a>
+		          </li>
+		        </ul>
+		      </div>
+		      <!-- Avatar -->
+		      <div class="dropdown">
+		        <a
+		          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+		          href="#"
+		          id="navbarDropdownMenuAvatar"
+		          role="button"
+		          data-mdb-toggle="dropdown"
+		          aria-expanded="false"
+		        >
+		          <img
+		            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+		            class="rounded-circle"
+		            height="25"
+		            alt="Black and White Portrait of a Man"
+		            loading="lazy"
+		          />
+		        </a>
+		        <ul
+		          class="dropdown-menu dropdown-menu-end"
+		          aria-labelledby="navbarDropdownMenuAvatar"
+		        >
+		          <li>
+		            <a class="dropdown-item" href="#">My profile</a>
+		          </li>
+		          <li>
+		            <a class="dropdown-item" href="#">Settings</a>
+		          </li>
+		          <li>
+		            <form method="post" th:action="@{/logout}"> 
+								<input type="submit" class="btn btn-success" value="Cerrar sesión">
+					  </form>
+		          </li>
+		        </ul>
+		      </div>
+		    </div>
+		    <!-- Right elements -->
+		  </div>
+		  <!-- Container wrapper -->
+		</nav>
+		<!-- Navbar -->
+		</div>
+</div>
+
+
+
+<div th:fragment="java">	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+			crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.3.0/alertify.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.3.0/alertify.js"></script>
+		
+		
+	
+</div>
+
+</body>
+</html>
+
+
+    
+
+    
+

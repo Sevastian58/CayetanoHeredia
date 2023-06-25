@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Policlinico</title>
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+nav{
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+}
+#nav-logo{
+    width: 80px;
+    margin-bottom: 10px;
+}
+#nav-logo>img{
+    width: inherit;
+}
+.nav-elemento{
+    padding: 30px;
+}
+#btn-ingresar{
+    color:rgb(88, 88, 202);
+}#btn-ingresar>a{
+    text-decoration: none;
+}
+#btn-ingresar>a:link{
+    color:rgb(88, 88, 202);
+}
+#btn-ingresar>a:active{
+    color:rgb(88, 88, 202);
+}
+#btn-ingresar>a:visited{
+    color:rgb(88, 88, 202);
+}
+#banner-clinica{
+    width: 100%;
+}
+#banner-clinica>img{
+    width: inherit;
+}
+#especialidades{
+    display: block;
+}
+.titulo{
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#cuadro-especialidades{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+#especialidades-titulo{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: rgb(88, 88, 202);
+}
+.especialidad-elemento{
+    width: 20%;
+    height: 270px;
+    margin: 0 0.1% 0 0.1%;
+    background-color: rgb(2, 2, 188);
+    display: flex;
+    flex-direction: column;
+}
+.especialidad-elemento:hover{
+    background-color: whitesmoke;
+    color: blue;
+}
+.subtitulo{
+    width: inherit;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+}
+.especialidad-encabezado{
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+}
+.especialidad-cuerpo{
+    margin-top: 15%;
+    margin-left: 15%;
+    width: 85%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    color: white;
+}
+.especialidad-cuerpo>img{
+    width: 25%;
+}
+.especialidad-cuerpo>span{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+.especialidad-footer{
+    width: 95%;
+    margin-right: 5%;
+    display: flex;
+    text-align: right;
+}
+#cuadro-especialidad-footer{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(88, 88, 202);
+    color: aliceblue;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#panel1{
+width: 90%;
+margin-left: 5%;
+margin-top: 5%;
+display: block;
+}
+#panel1-titulo{
+    margin-left: 10%;
+    margin-bottom: 2%;
+    color: rgb(88, 88, 202);
+}
+#panel1-cuerpo{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#panel1-imagen{
+    width: 50%;
+    float: left;
+}
+#panel1-imagen>img{
+    width: 100%; 
+}
+#panel1-enunciado{
+    width: 50%;
+    float: right;
+    background-color:  rgb(88, 88, 202);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#panel1-enunciado>p{
+    margin: 10%;
+    color: aliceblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+}
+.pie-pagina{
+    margin-top: 5%;
+    width: 100%;
+    padding:0 10% 0 10%;
+    background-color: rgba(88, 88, 202, 0.332);;
+}
+.btn-suscribirse{
+    background-color: rgb(88, 88, 202)!important;
+    color:white!important;
+}
+</style>
+<body>
+    <nav>
+        <div id="nav-logo">
+           <img src="../static/app/logo/app_1080px.png">
+        </div>
+        <div class="nav-elemento">
+            <span>Especialidades</span>
+        </div>
+        <div class="nav-elemento">
+            <span>Sedes</span>
+        </div>
+        <div class="nav-elemento">
+            <span>Servicios</span>
+        </div>
+        <div class="nav-elemento">
+            <span>Reserva tu cita</span>
+        </div>
+        <div id="btn-ingresar" class="nav-elemento">
+            <a href="login.jsp">Ingresar al Sistema</a>
+        </button>
+    </nav>
+    <section>
+        <div id="banner-clinica">
+            <img  src="../static/img/banner-clinica.jpg">
+        </div> 
+    </section>
+    <main>
+        <div id="especialidades">
+            <div id="especialidades-titulo">
+                <span class="titulo">Nuestras Especialidades</span>
+            </div>
+            <div id="cuadro-especialidades">
+                <div class="especialidad-elemento">
+                    <div class="especialidad-encabezado">
+                        <div class="subtitulo">
+                            <span>ESPECIALIDAD DE ------</span>
+                        </div>
+                    </div>
+                    <div class="especialidad-cuerpo">
+                        <img class="especialidad-img" src="img/corazon.png">
+                        <span>Cargiología</span>
+                    </div>  
+                    <div class="especialidad-footer">
+                        <div class="subtitulo">
+                            <span>Ver más</span>
+                        </div>
+                    </div>    
+                </div>
+                <div class="especialidad-elemento">
+                    <div class="especialidad-encabezado">
+                        <div class="subtitulo">
+                            <span>ESPECIALIDAD DE ------</span>
+                        </div>
+                    </div>
+                    <div class="especialidad-cuerpo">
+                        <img class="especialidad-img" src="img/cancer.png">
+                        <span>Oncología</span>
+                    </div>  
+                    <div class="especialidad-footer">
+                        <div class="subtitulo">
+                            <span>Ver más</span>
+                        </div>
+                    </div> 
+                </div>
+                <div class="especialidad-elemento">
+                    <div class="especialidad-encabezado">
+                        <div class="subtitulo">
+                            <span>ESPECIALIDAD DE ------</span>
+                        </div>
+                    </div>
+                    <div class="especialidad-cuerpo">
+                        <img class="especialidad-img" src="img/child.png">
+                        <span>Pediatría</span>
+                    </div>  
+                    <div class="especialidad-footer">
+                        <div class="subtitulo">
+                            <span>Ver más</span>
+                        </div>
+                    </div> 
+                </div>
+                <div class="especialidad-elemento">
+                    <div class="especialidad-encabezado">
+                        <div class="subtitulo">
+                            <span>ESPECIALIDAD DE ------</span>
+                        </div>
+                    </div>
+                    <div class="especialidad-cuerpo">
+                        <img class="especialidad-img" src="img/pulmones.png">
+                        <span>Neumología</span>
+                    </div>  
+                    <div class="especialidad-footer">
+                        <div class="subtitulo">
+                            <span>Ver más</span>
+                        </div>
+                    </div> 
+                </div>
+                <div class="especialidad-elemento">
+                    <div class="especialidad-encabezado">
+                        <div class="subtitulo">
+                            <span>ESPECIALIDAD DE ------</span>
+                        </div>
+                    </div>
+                    <div class="especialidad-cuerpo">
+                        <img class="especialidad-img" src="img/stomach.png">
+                        <span>Gastroentrología</span>
+                    </div>  
+                    <div class="especialidad-footer">
+                        <div class="subtitulo">
+                            <span>Ver más</span>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div id="cuadro-especialidad-footer">
+                <span>Ver más especialidades</span>
+            </div>  
+        </div>
+    </main>
+    <section>
+        <div id="panel1">
+            <div id="panel1-titulo">
+                <span class="titulo">¿Por qué Clínica Cayetano Heredia?</span>
+            </div>
+            <div id="panel1-cuerpo">
+                <div id="panel1-imagen">
+                    <img th:src="${img/public-clinica.jpg}">
+                </div>
+                <div id="panel1-enunciado">
+                    <p>
+                        Médicos de primer nivel y los tecnólogos médicos más especializados, 
+                        forman parte del staff de la Clínica Cayetano Heredia, han sido capacitados 
+                        en las más modernas aplicaciones que existen en el sector salud.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="pie-pagina">
+        <footer class="py-5">
+          <div class="row">
+            <div class="col-6 col-md-2 mb-3">
+              <h5>Section</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+              </ul>
+            </div>
+      
+            <div class="col-6 col-md-2 mb-3">
+              <h5>Section</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+              </ul>
+            </div>
+      
+            <div class="col-6 col-md-2 mb-3">
+              <h5>Section</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+              </ul>
+            </div>
+      
+            <div class="col-md-5 offset-md-1 mb-3">
+              <form>
+                <h5>Suscribete a nuestro Boletín</h5>
+                <p>Resumen mensual de lo que es nuevo y emocionante sobre nosotros.</p>
+                <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                  <label for="newsletter1" class="visually-hidden">Email address</label>
+                  <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                  <button class="btn btn-suscribirse" type="button">Suscribete</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      
+          <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <p>&copy; 2022 Company, Inc. Todos los derechos reservados.</p>
+            <ul class="list-unstyled d-flex">
+              <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+              <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+              <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:src="${/js/hover.js}"></script>
+</body>
+</html>

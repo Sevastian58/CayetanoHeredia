@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+nav{
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+}
+#nav-logo{
+    width: 80px;
+    margin-bottom: 10px;
+}
+#nav-logo>img{
+    width: inherit;
+}
+.nav-elemento{
+    padding: 30px;
+}
+#btn-ingresar{
+    color:rgb(88, 88, 202);
+}#btn-ingresar>a{
+    text-decoration: none;
+}
+#btn-ingresar>a:link{
+    color:rgb(88, 88, 202);
+}
+#btn-ingresar>a:active{
+    color:rgb(88, 88, 202);
+}
+#btn-ingresar>a:visited{
+    color:rgb(88, 88, 202);
+}
+#banner-clinica{
+    width: 100%;
+}
+#banner-clinica>img{
+    width: inherit;
+}
+#especialidades{
+    display: block;
+}
+.titulo{
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#cuadro-especialidades{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+#especialidades-titulo{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: rgb(88, 88, 202);
+}
+.especialidad-elemento{
+    width: 20%;
+    height: 270px;
+    margin: 0 0.1% 0 0.1%;
+    background-color: rgb(2, 2, 188);
+    display: flex;
+    flex-direction: column;
+}
+.especialidad-elemento:hover{
+    background-color: whitesmoke;
+    color: blue;
+}
+.subtitulo{
+    width: inherit;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+}
+.especialidad-encabezado{
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+}
+.especialidad-cuerpo{
+    margin-top: 15%;
+    margin-left: 15%;
+    width: 85%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    color: white;
+}
+.especialidad-cuerpo>img{
+    width: 25%;
+}
+.especialidad-cuerpo>span{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+.especialidad-footer{
+    width: 95%;
+    margin-right: 5%;
+    display: flex;
+    text-align: right;
+}
+#cuadro-especialidad-footer{
+    width: 100%;
+    height: 50px;
+    background-color: rgb(88, 88, 202);
+    color: aliceblue;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#panel1{
+width: 90%;
+margin-left: 5%;
+margin-top: 5%;
+display: block;
+}
+#panel1-titulo{
+    margin-left: 10%;
+    margin-bottom: 2%;
+    color: rgb(88, 88, 202);
+}
+#panel1-cuerpo{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#panel1-imagen{
+    width: 50%;
+    float: left;
+}
+#panel1-imagen>img{
+    width: 100%; 
+}
+#panel1-enunciado{
+    width: 50%;
+    float: right;
+    background-color:  rgb(88, 88, 202);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#panel1-enunciado>p{
+    margin: 10%;
+    color: aliceblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+}
+.pie-pagina{
+    margin-top: 5%;
+    width: 100%;
+    padding:0 10% 0 10%;
+    background-color: rgba(88, 88, 202, 0.332);;
+}
+.btn-suscribirse{
+    background-color: rgb(88, 88, 202)!important;
+    color:white!important;
+}

@@ -1,0 +1,186 @@
+ 		#cuerpo-historia{
+    width: 98%;
+    margin: 1%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+#datos-paciente-historia{
+	height:inherit;
+    width: 30%;
+}
+#datos-paciente{
+	height:auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 12px;
+    border: 1px solid #172B4C;
+}
+#datos-paciente-img{
+    margin: 12px;
+    width: 50px;
+}
+#datos-paciente-img>img{
+    width: inherit;
+}
+#datos-paciente-descripcion{
+    padding: 12px;
+}
+#nombres-paciente>span{
+    font-size: 16px;
+}
+#datos-secundarios{
+    display: flex;
+    flex-direction: row;
+}
+#fecha-nacimiento>span{
+    font-size: 13px;
+}
+#sexo-paciente>span{
+    font-size: 13px;
+}
+#signos-vitales{
+    margin-top: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid #172B4C;
+}
+.signos-vitales-item{
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#cita-paciente-historia{
+    height: auto;
+    overflow: hidden;
+    margin-top: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid #172B4C;
+    
+}
+#cita-titulo{
+    margin-bottom: 10px;
+}
+#citas-ultimas{
+    padding: 10px;
+    height: 230px;
+    overflow-y: scroll;
+}
+.cita-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 12px;
+    border: 1px solid #172B4C;
+    margin-bottom: 10px;
+}
+.cita-item>div{
+    margin: 10px;
+}
+#paciente-historia{
+    margin-left: 10px;
+    width: 69%;
+    height: 570px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid #172B4C;
+    margin-bottom: 10px;
+}
+#historia-titulo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#historia-titulo>span{
+    font-family: font_regular;   
+}
+#historia-guardada{
+    height: 300px;
+    overflow-y: scroll;
+    padding: 20px;
+}
+#historia-guardada-contenido{
+    text-align: justify;
+}
+#historia-nueva-titulo{
+    margin: 20px;
+}
+#historia-nueva{
+    margin-left: 20px;
+    padding: 12px;
+    width: 95%;
+    height: 100px;
+    resize: none;
+}
+#agregar-historia{
+    width: 15%;
+    height: 30px;
+    margin-left: 80%;
+    background-color: #172B4C;
+    border-radius: 12px;
+}
+#agregar-historia>span{
+    color: aliceblue;
+}
+
+/*modal buscar paciente*/
+#modal-buscar-paciente{
+    margin-left: 30%;
+    width: 40%;
+    height: 200px;
+    background-color: #172B4C;
+    position: absolute;
+    z-index: 999;
+}
+#boton-buscar-historia{
+  background-color: #172B4C;  
+  border: none;
+}
+#modal-view{
+    width: 600px;
+}
+#modal-cuerpo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#modal-cabecera{
+    display: flex;
+    flex-direction: row;
+}
+.modal-elemento{
+    margin-top: 5px;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+}
+.modal-elemento-label{
+    margin-right: 5px;
+}
+.modal-elemento-select{
+    width: 140px;
+    height: 40px;
+}
+.modal-elemento-select>input{
+    width: inherit;
+}
+#tipo-busqueda{
+    width: 100px;
+}
+#tabla-busqueda-pacientes{
+    margin-left: 10%;
+    width: 80%;
+}
+#tabla-busqueda-pacientes-contenido>tr:hover{
+    background-color: #172b4c6d;
+}

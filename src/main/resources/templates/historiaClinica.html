@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="plantilla/UITemplate :: cabecera">
+<meta charset="ISO-8859-1">
+<title>Historia Clinica</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+
+</head>
+<style>
+	#historiaCuerpo{
+		display:flex;
+		flex-direction: column;
+	}
+	#detalleHistoria{
+		width:100%;
+		border: 1px solid #ddd;
+		overflow-y: scroll;
+		padding: 5%;
+	}
+	#detalleHistoriaNuevo{
+		margin-top:1%;
+		width: 900px;
+		height: 400px;
+		border: 1px solid #ddd;
+		overflow-y: scroll;
+		padding: 5%;
+	}
+	.paciente-lista-elemento{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	.paciente-lista-elemento:hover{
+		background-color:#BDEC;
+	}
+	.paciente-lista-elemento>span{
+		margin: 1%;
+	}
+</style>
+<body style="background: #BDEC;">
+	<!--consumir fragmento-->
+	<div th:insert="plantilla/UITemplate :: menu"></div>
+	
+	<div class="container">		
+			<h3 class="text-center mt-4">LISTA DE HISTORIALES CLINICOS</h3>
+
+			<button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modalMedicamento" id="btn-nuevo">Buscar Paciente</button>
+			<!--<form>-->
+			<input type="number" id="numHistoria" value="0" name="codigo" style="display: none;">
+			
+			<div id="historiaCuerpo" class="d-flex justify-content-center align-items-center">
+
+				<div id="detalleHistoria"  style="background-color: aliceblue; height: 300px;">
+					
+				</div>
+				<div class="form-floating">
+					<textarea class="form-control" id="detalleHistoriaNuevo" placeholder="Leave a comment here" style="height: 100px" name="descripcion"></textarea>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary mt-5"  id="btn-guardar">Modificar</button>
+	<!--	</form>-->
+			
+			
+		
+		
+			<!-- begin #modal-dialog : MODAL MEDICAMENTO-->
+			<div class="modal fade" id="modalMedicamento" data-backdrop="static" 
+							data-keyboard="false" tabindex="-1" 
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered modal-login modal-lg" >					
+							<div class="modal-content">
+								<div class="modal-header bg-blue-darker">
+									<h4 class="modal-title text-white">Medicamento</h4>
+								</div>
+								<div class="modal-body">
+									<form method="POST" id="idRegistra" action="">	
+										<div class="container">
+											<div class="row d-flex justify-content-center align-items-center">
+												
+												
+												
+											 
+												 
+											</div>
+										</div>								
+										<div class="col-md-12 text-center mt-4"> 										
+											<button type="submit" id="Guardar" class="btn btn-primary"><i class="fas fa-save"></i> Buscar</button>
+											<button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
+										</div> 																								
+									</form>
+								</div>
+							</div>
+						</div>
+		</div>
+		<!-- FIN Modal MEDICAMENTO-->	
+		<form action="/historiaClinica/eliminar" method="post" id="frm-eliminar">
+			<input type="hidden" name="codigo" id="codigo-eliminar"/>
+			
+		</form>
+	
+	</div>
+	
+	<div th:insert="plantilla/UITemplate :: java"></div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+			crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.3.0/alertify.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.3.0/alertify.js"></script>
+	<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+	<script th:inline="javascript" th:if="${MENSAJE!=null}">
+		let msj;
+		msj=/*[[${MENSAJE}]]*/
+		toastr.success(msj, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+
+		
+	</script>
+	
+	
+	<script>
+
+		moment.lang('es', {
+		  months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+		  monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+		  weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+		  weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+		  weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+		}
+		);
+	let codigoPaciente;
+
+	dimensionar();
+	//definir el tamaño del textarea
+
+	function dimensionar(){
+		let detalleHistoriaSize= $("#detalleHistoria").width();
+		$("#detalleHistoriaNuevo").width(detalleHistoriaSize);
+
+	}
+
+	//asignar evento click a todos los botones con nombre de clase "btn-editar"
+	$(document).on("click","#btn-buscar",function(){
+		//variable
+		let cod=$("#codPaciente").val();
+		alert(cod)
+		//función get de JQUERY lee una ruta que retorna un JSON
+		$.get("/historiaClinica/buscar?codigo="+cod,function(response){
+
+			console.log(response)
+			//mostrar en los controles los valores de la response
+			let boleta = document.getElementById("detalleHistoria");
+			boleta.innerHTML= response.descripcion;
+			
+			
+		})
+		
+		
+	})
+
+
+	$(document).on("click","#btn-guardar",function(){
+		//variable
+		//variable
+		let numHistoria=$("#numHistoria").val();
+		let codPaciente=$("#codPacienteHistoria").val();
+		let datelleNuevo=$("#detalleHistoriaNuevo").val()
+		let boleta = document.getElementById("detalleHistoria");
+		let now = new Date();
+        let fecha = moment(now).format('Do MMMM YYYY, h:mm:ss a')	
+		let descripcion=boleta.innerHTML + "<b>" + fecha+ "</b></br>" + datelleNuevo + "</br>";
+
+		//función get de JQUERY lee una ruta que retorna un JSON
+		alert(descripcion);
+		alert(numHistoria);
+		$.get("/historiaClinica/grabar?codigo="+numHistoria+"&descripcion="+descripcion+"&paciente="+codigoPaciente, function(response){
+			
+		})
+		alert("hola" + codigoPaciente)
+		buscarPorPaciente(codigoPaciente)
+		/*$.get("/historiaClinica/grabar?codigo="+numHistoria+"?descripcion="+descripcion+"?paciente="+codPaciente,function(response){
+
+			console.log(response)
+			
+		})*/
+	})
+	//asignar evento click al botón con ID "btn-cerrar"
+	$(document).on("click","#btn-cerrar",function(){
+		//resetear el formulario
+		$("#idRegistra").trigger("reset");
+		$("#idCodigo").val(0);
+		//resetear validaciones
+		$("#idRegistra").data("bootstrapValidator").resetForm(true);
+		
+	})
+
+	//asignar evento click a todos los botones con nombre de clase "btn-eliminar"
+	$(document).on("click",".btn-eliminar",function(){
+		//variable
+		let cod;
+		//obtener el código del medicamento según el botón editar que se pulsó
+		cod=$(this).parents("tr").find("td")[0].innerHTML;
+		$("#codigo-eliminar").val(cod);
+		
+		  alertify.confirm("SISTEMA","Seguro de eliminar!",
+		  function(){//siiiiiiiiiiiiiiiii
+				$("#frm-eliminar").submit();
+		  },
+		  function(){//nooooooooooooooooooooo 
+			alertify.error('Cancelado!')
+		  }).
+		  set('labels', {ok:'Si', cancel:'No'});
+	})
+
+
+	$( "#nombrePaciente" ).on( "keypress", function() {
+		let nombre=$("#nombrePaciente").val();
+  		console.log( "el nombre ingresado es " + nombre);
+
+		  $("#pacienteLista").empty();
+		  $.get("/paciente/buscarPorNombre?nombre="+nombre,function(response){
+			console.log(response)
+			//mostrar en los controles los valores de la response
+			$.each(response,function(i,e){			
+				$("#pacienteLista").append('<div class="paciente-lista-elemento">'+
+									'<span class="codPaciente">'+e.codigo+'</span>'+
+									'<span>'+e.nombre+'</span>'+
+									'<span>'+e.apellido+'</span>'+
+									'<span>'+e.dni+'</span>'+
+									'</div>');	
+			})
+		})
+	} );
+
+
+	$(document).on("click",".paciente-lista-elemento",function(){
+		//variable
+		codigoPaciente=$(this).find(".codPaciente").text()
+		console.log("el codigo es " + codigoPaciente);
+				
+		let boleta = document.getElementById("detalleHistoria");
+		boleta.innerHTML= "";
+		$("#detalleHistoriaNuevo").val("");
+		buscarPorPaciente(codigoPaciente);
+
+		//cerrar el modal
+		$("#btn-cerrar").trigger("click");
+		let pared = document.getElementsByClassName("modal-backdrop");
+
+		for(let i=0; i<pared.length;i++){
+			pared[i].style.display="none";
+		}
+	})
+	//funciones 
+		//mostrar historial de paciente
+		function buscarPorPaciente(codigoPaciente){
+			$.get("/historiaClinica/buscarPorPaciente?codigo="+codigoPaciente,function(response){
+			console.log(response)
+			//mostrar en los controles los valores de la response
+			
+			let boleta = document.getElementById("detalleHistoria");
+			
+			if(response){
+				$("#numHistoria").val(response.codigo);
+				boleta.innerHTML= response.descripcion;
+			}else{
+				$("#numHistoria").val(0);
+			}
+			
+			
+		})
+		 }
+	$(document).on("click","#btn-nuevo",function(){
+		//variable
+		let pared = document.getElementsByClassName("modal-backdrop");
+
+		for(let i=0; i<pared.length;i++){
+			pared[i].style.display="block";
+		}
+	})
+	//asignar evento change al combo con atributo ID "idLaboratorio"
+	/*$(document).on("change","#idLaboratorio",function(){
+		//obtener código del laboratorio actual
+		let cod;
+		cod=$(this).val();
+		//limpiar combo tipo
+		$("#idTipo").empty().append("<option value=' '>[Seleccione Tipo medicamento]</option>");
+		$.get("/medicamento/listarPorLaboratorio?codLab="+cod,function(response){
+			//console.log(response);
+			//bucle
+			$.each(response,function(i,e){			
+				$("#idTipo").append("<option value='"+e.codigo+"'>"+e.nombre+"</option>");	
+			})
+			//asignar tipo de medicamento
+			$("#idTipo").val(codigoTipo);
+		})
+	})*/
+	
+
+	</script>
+	
+	<script type="text/javascript">    
+	    $(document).ready(function(){     
+	
+	        $('#idRegistra').bootstrapValidator({     
+	        	feedbackIcons: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	        	 fields:{
+	        		 
+	        		 Nombres: {
+	     	    		selector:'#idNombre',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese nombre'    
+	                        }      
+	                    }    
+	                },   
+	                Descripcion: {
+	     	    		selector:'#idDescripcion',       
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese descripción'    
+	                        }      
+	                    }    
+	                },    
+	                Stock: {
+	     	    		selector:'#idStock',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese stock'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^[0-9]{1,2}$/,    
+	                            message: 'Campo stock hasta dos cifras'    
+	                        },   
+	                    }    
+	                },
+	                precio: {
+	     	    		selector:'#idPrecio',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese precio'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,    
+	                            message: 'Campo precio real hasta dos decimales'    
+	                        },   
+	                    }    
+	                },       				
+	               Fecha: {
+	     	    		selector:'#usr1',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione fecha '    
+	                        },
+	                        date: {
+	                            format: 'yyyy-MM-dd hh:mm',
+	                            message: 'The format is dd/mm/yyyy'
+	                        },
+	                    }    
+	                },
+	                Tipo: {
+	     	    		selector:'#idTipo',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione tipo medicamento'    
+	                        },					
+	                    }    
+	                } 
+	        	 }
+	        })					
+	    });    
+	</script>   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

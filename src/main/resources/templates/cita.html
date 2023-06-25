@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="plantilla/UITemplate :: cabecera">
+<meta charset="ISO-8859-1">
+<title>Historia Clinica</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css">
+   <!--   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+	-->
+	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>-->
+	
+</head>
+<style>
+	#lista-citas-cabecera{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.lista-citas-cabecera-item{
+		margin: 0.5%;
+	}
+
+	.lista-citas-cuerpo{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.lista-citas-cuerpo:hover{
+		background-color: rgb(160, 238, 231);
+	}
+	.lista-citas-cuerpo-body{
+		display: flex;
+		flex-direction: column;
+	}
+	.lista-citas-cuerpo-item{
+		margin: 0.5%;
+	}
+	.paciente-lista-elemento{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	.paciente-lista-elemento:hover{
+		background-color:#BDEC;
+	}
+	.paciente-lista-elemento>span{
+		margin: 1%;
+	}
+</style>
+<!--<body style="background: #BDEC;">-->
+<body id="cita">
+	<!--consumir fragmento-->
+	<div th:insert="plantilla/UITemplate :: menu"></div>
+	
+	<div class="container">		
+			
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal01" style="display: none;" id="btn-modal">
+			Launch static backdrop modal
+		</button>
+			<!--Calendario-->
+			<div id='citas_calendar'></div>
+			
+			<!-- Button trigger modal -->
+			
+			
+			
+  
+
+		
+				
+		
+	
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal01" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form action="/cita/grabar" method="post">
+		<div class="modal-content" id="modal01-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="staticBackdropLabel">Registrar Cita</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="mb-3">
+					<label for="disabledTextInput" class="form-label">Fecha</label>
+					<input type="text" id="fecha-cita" class="form-control" name="fecha">
+				</div>
+				<div class="mb-3">
+					<label for="disabledTextInput" class="form-label">Especialidad</label>
+					<select class="form-select" aria-label="Default select example" id="especialidad-cita" name="especialidad">
+						
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="disabledTextInput" class="form-label">Medico</label>
+					<select class="form-select" aria-label="Default select example" id="medico-cita" name="medico">
+						
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="disabledTextInput" class="form-label">Sala</label>
+					<select class="form-select" aria-label="Default select example" id="sala-cita" name="sala">
+						
+					</select>
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+			<button type="button" class="btn btn-primary" id="btn-siguiente">Siguiente</button>
+			</div>
+		</div>
+		<div class="modal-content" id="modal02-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="staticBackdropLabel">Reistrar Cita</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group has-feedback col-md-12">
+					<label><b>Paciente</b></label><br>	
+					<input type="text" class="form-control" id="nombrePaciente" placeholder="Ingresar nombre paciente">	
+				</div>
+				<div class="form-group has-feedback col-md-12" id="pacienteLista">
+					
+					<div class="paciente-lista-elemento">
+						<span><b>ID Paciente</b> </span>
+						<span><b>Nombre Paciente</b></span>
+						<span><b>Apellido Paciente</b></span>
+						<span><b>DNI</b></span>
+					</div>
+				</div>
+				<input type="text" class="form-control" id="codPaciente"  name="codPaciente">	
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+			<button type="button" class="btn btn-primary" id="btn-anterior">Anterior</button>
+			<button type="button" class="btn btn-primary" id="btn-siguiente2">Siguiente</button>
+			</div>
+		</div>
+		<div class="modal-content" id="modal03-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="staticBackdropLabel2">Modal title</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="lista-citas">
+					<div id="lista-citas-cabecera">
+						<div class="lista-citas-cabecera-item">Hora</div>
+						<div class="lista-citas-cabecera-item">Nombre Paciente</div>
+						<div class="lista-citas-cabecera-item">Codigo Cita</div>
+					</div>
+					<div id="lista-citas-cuerpo-body">
+						
+					</div>
+					<input type="text" class="form-control" id="hora"  name="hora">	
+				</div>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+			<button type="button" class="btn btn-primary" id="btn-anterior2">Anterior</button>
+			<button type="submit" class="btn btn-primary" id="btn-guardar">Guardar</button>
+			</div>
+		</div>
+		</form>
+		</div>
+	</div>
+
+	
+
+
+	<div th:insert="plantilla/UITemplate :: java"></div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+			crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.3.0/alertify.js"></script>
+	
+	
+	<script th:inline="javascript" th:if="${MENSAJE!=null}">
+		let msj;
+		msj=/*[[${MENSAJE}]]*/
+		toastr.success(msj, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+
+		
+	</script>
+	
+	
+    
+	<script>
+
+		let fecha;
+		let especialidad;
+		let horaGrabar;
+		$("#modal02-content").hide();
+		$("#modal03-content").hide();
+
+
+		moment.lang('es', {
+		  months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+		  monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+		  weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+		  weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+		  weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+		}
+		);
+
+		document.addEventListener('DOMContentLoaded', function() {
+				var calendarEl = document.getElementById('citas_calendar');
+				var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView: 'dayGridMonth',
+				dateClick: function(info) {
+					$("#btn-modal").trigger('click');
+					
+					fecha = info.dateStr;
+					$("#fecha-cita").val(fecha);
+					
+					listarEspecialidades();
+				}
+				});
+				calendar.render();
+			});
+					
+		
+		function listarEspecialidades(){
+			$.get("/especialidad/lista",function(response){
+
+				console.log(response)
+				//mostrar en los controles los valores de la response
+				$.each(response, function(i,item){
+					$("#especialidad-cita").append('<option value="'+item.codigo+'">'+item.nombre+'</option>')
+				})
+
+				})
+		}
+		
+		
+			$( "#especialidad-cita" ).on( "change", function() {
+
+				
+				let espe=$("#especialidad-cita").val();
+				$.get("/medico/listaMedicosEspecialidad?especialidad="+espe,function(response){
+
+				console.log(response)
+				$("#medico-cita").empty();
+				//mostrar en los controles los valores de la response
+				$.each(response, function(i,item){
+					$("#medico-cita").append('<option value="'+item.codigo+'">'+item.nombre+'</option>')
+				})
+
+				
+
+				})
+
+				$.get("/sala/listaSalaEspecialidad?especialidad="+espe,function(response){
+
+				console.log(response)
+				$("#sala-cita").empty();
+				//mostrar en los controles los valores de la response
+				$.each(response, function(i,item){
+					$("#sala-cita").append('<option value="'+item.codigo+'">'+item.codigo+'</option>')
+				})
+
+
+
+				})
+			} );
+		
+		
+	$(document).on("click", "#btn-siguiente", function(){
+		$("#modal02-content").show();
+		$("#modal01-content").hide();
+	})
+
+	$( "#nombrePaciente" ).on( "keypress", function() {
+		let nombre=$("#nombrePaciente").val();
+  		console.log( "el nombre ingresado es " + nombre);
+
+		  $("#pacienteLista").empty();
+		  $.get("/paciente/buscarPorNombre?nombre="+nombre,function(response){
+			console.log(response)
+			//mostrar en los controles los valores de la response
+			$.each(response,function(i,e){			
+				$("#pacienteLista").append('<div class="paciente-lista-elemento">'+
+									'<span class="codPaciente">'+e.codigo+'</span>'+
+									'<span>'+e.nombre+'</span>'+
+									'<span>'+e.apellido+'</span>'+
+									'<span>'+e.dni+'</span>'+
+									'</div>');	
+			})
+		})
+	} );
+
+	$(document).on("click",".paciente-lista-elemento",function(){
+		//variable
+		codigoPaciente=$(this).find(".codPaciente").text()
+		console.log("el codigo es " + codigoPaciente);
+		$("#codPaciente").val(codigoPaciente);
+		
+	})
+
+	$(document).on("click", "#btn-siguiente2", function(){
+		$("#modal01-content").hide();
+		$("#modal02-content").hide();
+		$("#modal03-content").show();
+
+		let especialidad=$("#especialidad-cita").val();
+		
+		let sala = $("#sala-cita").val();
+		let medico = $("#medico-cita").val();
+		let fecha = $("#fecha-cita").val();
+
+		$("#lista-citas-cuerpo-body").empty();
+		$.get("/cita/listaCreate?especialidad="+especialidad+"&sala="+sala+"&medico="+medico+"&fecha="+fecha,function(response){
+
+			console.log(response)
+			//$("#sala-cita").empty();
+			//mostrar en los controles los valores de la response
+			/*$.each(response, function(i,item){
+				$("#sala-cita").append('<option value="'+item.codigo+'">'+item.codigo+'</option>')
+			})*/
+			let number =8;
+
+			for(let i=8; i<=15;i++){
+				let condicion=true;
+				let hora;
+				if(i<10){
+					hora="0"+i+":00:00";
+				}else{
+					hora=i+":00:00";
+				}
+
+				$.each(response, function(i,item){
+					if(item.hora==hora){
+						$("#lista-citas-cuerpo-body").append('<div class="lista-citas-cuerpo">'+
+							'<div class="lista-citas-cuerpo-item hora">'+item.hora+'</div>'+
+							'<div class="lista-citas-cuerpo-item">'+item.pacienteCita.nombre+'</div>'+
+							'<div class="lista-citas-cuerpo-item">'+item.codigo+'</div>'+
+						'</div>')
+
+						condicion=false;
+					}
+				})
+
+				if(i<10 && condicion==true){
+					$("#lista-citas-cuerpo-body").append('<div class="lista-citas-cuerpo">'+
+							'<div class="lista-citas-cuerpo-item hora">'+'0'+i+':00:00'+'</div>'+
+							'<div class="lista-citas-cuerpo-item">'+'-'+'</div>'+
+							'<div class="lista-citas-cuerpo-item">'+'-'+'</div>'+
+						'</div>')
+				}
+				else if(i>=10 && condicion==true){
+					$("#lista-citas-cuerpo-body").append('<div class="lista-citas-cuerpo">'+
+							'<div class="lista-citas-cuerpo-item hora">'+i+':00:00'+'</div>'+
+							'<div class="lista-citas-cuerpo-item">'+'-'+'</div>'+
+							'<div class="lista-citas-cuerpo-item">'+'-'+'</div>'+
+						'</div>')
+				}
+				
+				
+				
+			}
+
+
+			})
+	})
+
+	$(document).on("click", "#btn-anterior", function(){
+		$("#modal01-content").show();
+		$("#modal02-content").hide();
+	})
+	$(document).on("click", "#btn-anterior2", function(){
+		$("#modal02-content").show();
+		$("#modal03-content").hide();
+	})
+
+	$(document).on("click", ".lista-citas-cuerpo", function(){
+		horaGrabar= $(this).find(".hora").text();
+		console.log(horaGrabar);
+		$("#hora").val(horaGrabar);
+	})
+
+	//asignar evento click a todos los botones con nombre de clase "btn-editar"
+	
+
+
+	
+	//asignar evento click al botón con ID "btn-cerrar"
+	
+
+	
+
+
+	
+
+	
+	
+	
+
+	</script>
+	
+	<script type="text/javascript">    
+	    $(document).ready(function(){     
+	
+	        $('#idRegistra').bootstrapValidator({     
+	        	feedbackIcons: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	        	 fields:{
+	        		 
+	        		 Nombres: {
+	     	    		selector:'#idNombre',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese nombre'    
+	                        }      
+	                    }    
+	                },   
+	                Descripcion: {
+	     	    		selector:'#idDescripcion',       
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese descripción'    
+	                        }      
+	                    }    
+	                },    
+	                Stock: {
+	     	    		selector:'#idStock',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese stock'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^[0-9]{1,2}$/,    
+	                            message: 'Campo stock hasta dos cifras'    
+	                        },   
+	                    }    
+	                },
+	                precio: {
+	     	    		selector:'#idPrecio',      
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Ingrese precio'    
+	                        },
+	                        regexp: {    
+	                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,    
+	                            message: 'Campo precio real hasta dos decimales'    
+	                        },   
+	                    }    
+	                },       				
+	               Fecha: {
+	     	    		selector:'#usr1',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione fecha '    
+	                        },
+	                        date: {
+	                            format: 'yyyy-MM-dd hh:mm',
+	                            message: 'The format is dd/mm/yyyy'
+	                        },
+	                    }    
+	                },
+	                Tipo: {
+	     	    		selector:'#idTipo',   
+	                    validators: {    
+	                        notEmpty: {    
+	                            message: 'Seleccione tipo medicamento'    
+	                        },					
+	                    }    
+	                } 
+	        	 }
+	        })					
+	    });    
+	</script>   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>
